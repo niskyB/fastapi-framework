@@ -1,9 +1,7 @@
 import logging
 import re
-
 from fastapi import HTTPException, status
 from email_validator import validate_email, EmailNotValidError
-
 from app.constants import PASSWORD_COMPLEXITY_ERROR
 
 logger = logging.getLogger(__name__)

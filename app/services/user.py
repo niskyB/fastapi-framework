@@ -1,5 +1,5 @@
 import logging
-from app.apdapter.user_apdapter import UserApdater
+from app.adapter.user_adapter import UserApdater
 from app.schemas.user import ClientUserCreatePayload, UserQueryParams
 
 logger = logging.getLogger(__name__)

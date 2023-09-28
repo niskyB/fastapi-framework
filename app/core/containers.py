@@ -1,5 +1,4 @@
 from dependency_injector import containers, providers
-from app.apdapter.user_apdapter import UserApdater
 from app.core import settings
 from app.db.database import Database
 from app.repositories.azure_user import AzureUserRepository
@@ -37,9 +36,7 @@ class Container(containers.DeclarativeContainer):
         api_version=APIVersion.beta,
     )
 
-    user_repository = providers.Factory(AzureUserRepository, client=graph_client)
-
-    user_adapter = providers.Factory(UserApdater, repository=user_repository)
+    user_adapter = providers.Factory(AzureUserRepository, client=graph_client)
 
     role_repository = providers.Factory(
         RoleRepository, get_session=db.provided.get_session

@@ -2,8 +2,8 @@ import logging
 from http import HTTPStatus
 from fastapi import HTTPException
 from msgraph.core import GraphClient
+from app.adapter.user_adapter import UserApdater
 from app.constants.azure import AZURE_USERS_PATH
-from app.repositories.base_user import BaseUserRepository
 from app.schemas.azure import AzureUserCreatePayload, AzureUserCreateResponse
 from app.schemas.user import UserQueryParams
 from app.utils.user import get_user_select_properties
@@ -11,7 +11,7 @@ from app.utils.user import get_user_select_properties
 logger = logging.getLogger(__name__)
 
 
-class AzureUserRepository(BaseUserRepository):
+class AzureUserRepository(UserApdater):
     def __init__(self, client: GraphClient):
         self.client = client
 
