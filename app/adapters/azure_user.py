@@ -2,16 +2,16 @@ import logging
 from http import HTTPStatus
 from fastapi import HTTPException
 from msgraph.core import GraphClient
-from app.adapter.user_adapter import UserApdater
+from app.adapters.user_adapter import UserApdater
 from app.constants.azure import AZURE_USERS_PATH
-from app.schemas.azure import AzureUserCreatePayload, AzureUserCreateResponse
-from app.schemas.user import UserQueryParams
-from app.utils.user import get_user_select_properties
+from app.schemas.azure import AzureUserCreateResponse
+from app.schemas.user import ClientUserCreatePayload, UserQueryParams
+from app.utils.user import create_user_request, get_user_select_properties
 
 logger = logging.getLogger(__name__)
 
 
-class AzureUserRepository(UserApdater):
+class AzureUserAdapter(UserApdater):
     def __init__(self, client: GraphClient):
         self.client = client
 
@@ -61,7 +61,7 @@ class AzureUserRepository(UserApdater):
 
         return res.json()
 
-    def create_user(self, payload: AzureUserCreatePayload):
+    def create_user(self, payload: ClientUserCreatePayload):
         """Send request to Azure AD to create new user.\n
 
         Args:
@@ -73,9 +73,10 @@ class AzureUserRepository(UserApdater):
         Returns:
             dict: Created user object.
         """
+        data = create_user_request(payload)
         response = self.client.post(
             url=AZURE_USERS_PATH,
-            data=payload.model_dump_json(exclude_none=True, by_alias=True),
+            data=data.model_dump_json(exclude_none=True, by_alias=True),
             headers={"Content-Type": "application/json"},
         )
 

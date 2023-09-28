@@ -1,13 +1,10 @@
 from dependency_injector import containers, providers
+from app.adapters.user_adapter import UserApdater
 from app.core import settings
 from app.db.database import Database
-from app.repositories.azure_user import AzureUserRepository
 from app.repositories.role import RoleRepository
 from app.services.user import UserService
 from app.services.role import RoleService
-from azure.identity import ClientSecretCredential
-from msgraph.core import APIVersion
-from msgraph.core import GraphClient
 
 
 # Please import Container class directly from this file if you want to use it in another file.
@@ -23,20 +20,7 @@ class Container(containers.DeclarativeContainer):
 
     db = providers.Singleton(Database, db_url=settings.SQLALCHEMY_DATABASE_URL)
 
-    graph_client_credential = providers.Singleton(
-        ClientSecretCredential,
-        tenant_id=settings.TENANT_ID,
-        client_id=settings.CLIENT_ID,
-        client_secret=settings.CLIENT_SECRET,
-    )
-
-    graph_client = providers.Singleton(
-        GraphClient,
-        credential=graph_client_credential,
-        api_version=APIVersion.beta,
-    )
-
-    user_adapter = providers.Factory(AzureUserRepository, client=graph_client)
+    user_adapter = providers.Dependency(instance_of=UserApdater)
 
     role_repository = providers.Factory(
         RoleRepository, get_session=db.provided.get_session
