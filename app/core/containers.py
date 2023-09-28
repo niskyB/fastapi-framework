@@ -1,5 +1,5 @@
 from dependency_injector import containers, providers
-from app.apdapter.azure_user_apdapter import UserApdater
+from app.apdapter.user_apdapter import UserApdater
 from app.core import settings
 from app.db.database import Database
 from app.repositories.azure_user import AzureUserRepository

@@ -1,7 +1,7 @@
 import logging
 from app.models import Role
 from app.constants.error_message import SOMETHING_WENT_WRONG
-from app.repositories.base import BaseRepository
+from app.repositories.base_db import BaseRepository
 from fastapi import HTTPException, status
 
 

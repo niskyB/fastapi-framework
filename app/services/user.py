@@ -1,5 +1,5 @@
 import logging
-from app.apdapter.azure_user_apdapter import UserApdater
+from app.apdapter.user_apdapter import UserApdater
 from app.schemas.user import ClientUserCreatePayload, UserQueryParams
 
 logger = logging.getLogger(__name__)
