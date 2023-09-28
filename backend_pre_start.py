@@ -19,7 +19,7 @@ engine = create_engine(settings.SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 db = SessionLocal()
 
-create_schema_sql = text(f'CREATE SCHEMA IF NOT EXISTS "{settings.POSTGRES_SCHEMA}"')
+create_schema_sql = text(f'CREATE SCHEMA IF NOT EXISTS "{settings.DB_SCHEMA}"')
 
 
 def transfer_roles(roles: List[Role]):

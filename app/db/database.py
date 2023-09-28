@@ -9,7 +9,7 @@ from app.core.config import settings
 
 logger = logging.getLogger(__name__)
 
-Base = declarative_base(metadata=MetaData(schema=settings.POSTGRES_SCHEMA))
+Base = declarative_base(metadata=MetaData(schema=settings.DB_SCHEMA))
 
 
 class Database:

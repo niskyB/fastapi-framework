@@ -9,11 +9,11 @@ You can set the application environment in `.env` file
 | Name                 | Description                      |
 | -------------------- | -------------------------------- |
 | BACKEND_CORS_ORIGINS | CORS allow origin                |
-| POSTGRES_SERVER      | Postgres host server             |
-| POSTGRES_USER        | Postgres user                    |
-| POSTGRES_PASSWORD    | Postgres password                |
-| POSTGRES_PORT        | Postgres port                    |
-| POSTGRES_DB          | Postgres DB name                 |
+| DB_SERVER            | DB host server                   |
+| DB_USER              | DB user                          |
+| DB_PASSWORD          | DB password                      |
+| DB_PORT              | DB port                          |
+| DB_DB                | DB DB name                       |
 | TENANT_ID            | Azure AD B2C tenant id           |
 | CLIENT_ID            | Azure AD B2C client id           |
 | CLIENT_SECRET        | Azure AD B2C client secret       |

@@ -20,12 +20,12 @@ class Settings(BaseSettings):
 
     ENV: Literal["prod", "stag", "dev"] = "dev"
 
-    POSTGRES_SERVER: Optional[str] = None
-    POSTGRES_USER: Optional[str] = None
-    POSTGRES_PASSWORD: Optional[str] = None
-    POSTGRES_PORT: Optional[int] = None
-    POSTGRES_DB: Optional[str] = None
-    POSTGRES_SCHEMA: Optional[str] = "public"
+    DB_SERVER: Optional[str] = None
+    DB_USER: Optional[str] = None
+    DB_PASSWORD: Optional[str] = None
+    DB_PORT: Optional[int] = None
+    DB_DB: Optional[str] = None
+    DB_SCHEMA: Optional[str] = "public"
 
     TENANT_NAME: str = ""
     TENANT_ID: str = ""
@@ -44,11 +44,11 @@ class Settings(BaseSettings):
     def SQLALCHEMY_DATABASE_URL(self):
         return sqlalchemy.engine.URL.create(
             "postgresql",
-            username=self.POSTGRES_USER,
-            password=self.POSTGRES_PASSWORD,
-            host=self.POSTGRES_SERVER,
-            port=self.POSTGRES_PORT,
-            database=self.POSTGRES_DB,
+            username=self.DB_USER,
+            password=self.DB_PASSWORD,
+            host=self.DB_SERVER,
+            port=self.DB_PORT,
+            database=self.DB_DB,
         )
 
     @property

@@ -78,7 +78,7 @@ def run_migrations_online() -> None:
         context.configure(
             connection=connection,
             target_metadata=target_metadata,
-            version_table_schema=settings.POSTGRES_SCHEMA,
+            version_table_schema=settings.DB_SCHEMA,
         )
 
         with context.begin_transaction():
