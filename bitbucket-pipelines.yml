@@ -1,0 +1,33 @@
+#  Template python-build
+#  This template allows you to validate your python code.
+#  The workflow allows running tests and code linting on the default branch.
+image: python:3.10
+pipelines:
+  pull-requests:
+    "**":
+      - parallel:
+          - step:
+              name: Build
+              caches:
+                - pip
+              script:
+                - echo $ENV_FILE > .env
+                - sudo docker network create fss-network || true
+                - sudo docker-compose up -d --build
+              after-script:
+                - sudo docker container stop db
+                - sudo docker container rm  db
+                - sudo docker container stop build_user_service_1 && sudo docker container rm build_user_service_1 && sudo docker image rm build_user_service
+              runs-on:
+                - self.hosted
+                - linux.shell
+          - step:
+              name: Format check
+              caches:
+                - pip
+              script:
+                - pip install black
+                - black --check .
+              runs-on:
+                - self.hosted
+                - linux.shell

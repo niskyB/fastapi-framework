@@ -1,0 +1,13 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "user-service",
+            "type": "shell",
+            "command": "./venv/Scripts/activate; uvicorn --host=0.0.0.0 --port=4001 app.main:app --reload",
+            "presentation": {
+                "panel": "dedicated"
+            }
+        }
+    ]
+}

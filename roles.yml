@@ -1,0 +1,5 @@
+user_roles:
+  customer: CUST
+  internal_employee: IEMP
+  subcontractor: SUBC
+  technician: TECH
