@@ -19,6 +19,5 @@ class UserApdater:
         return ClientUserListResponse(**self.repository.list_users(params)).value
 
     def create_user(self, payload: ClientUserCreatePayload):
-        return ClientUserResponse(
-            **self.repository.create_user(create_user_request(data=payload))
-        )
+        user = self.repository.create_user(create_user_request(data=payload))
+        return ClientUserResponse(**user.model_dump())

@@ -3,7 +3,7 @@ from http import HTTPStatus
 from fastapi import HTTPException
 from msgraph.core import GraphClient
 from app.constants.azure import AZURE_USERS_PATH
-from app.schemas.azure import AzureUserCreatePayload
+from app.schemas.azure import AzureUserCreatePayload, AzureUserCreateResponse
 from app.schemas.user import UserQueryParams
 from app.utils.user import get_user_select_properties
 
@@ -72,7 +72,6 @@ class AzureUserRepository:
         Returns:
             dict: Created user object.
         """
-        print("AFTER: ", payload.model_dump_json(exclude_none=True, by_alias=True))
         response = self.client.post(
             url=AZURE_USERS_PATH,
             data=payload.model_dump_json(exclude_none=True, by_alias=True),
@@ -85,5 +84,4 @@ class AzureUserRepository:
                 status_code=response.status_code,
                 detail=response.json(),
             )
-
-        return response.json()
+        return AzureUserCreateResponse(**response.json())
