@@ -4,8 +4,12 @@ from fastapi import HTTPException
 from msgraph.core import GraphClient
 from app.adapters.user_adapter import UserApdater
 from app.constants.azure import AZURE_USERS_PATH
-from app.schemas.azure import AzureUserCreateResponse
-from app.schemas.user import ClientUserCreatePayload, UserQueryParams
+from app.schemas.azure import AzureUserResponse
+from app.schemas.user import (
+    ClientUserCreatePayload,
+    ClientUserListResponse,
+    UserQueryParams,
+)
 from app.utils.user import create_user_request, get_user_select_properties
 
 logger = logging.getLogger(__name__)
@@ -35,7 +39,7 @@ class AzureUserAdapter(UserApdater):
             raise HTTPException(
                 res.status_code, detail=res.json().get("error").get("message")
             )
-        return res.json()
+        return AzureUserResponse(**res.json()).model_dump()
 
     def list_users(self, params: UserQueryParams):
         """Get all users from Azure AD.\n
@@ -59,7 +63,7 @@ class AzureUserAdapter(UserApdater):
             logger.error(res.json().get("error").get("message"))
             raise HTTPException(res.status_code, res.json().get("error").get("message"))
 
-        return res.json()
+        return ClientUserListResponse(**res.json()).value
 
     def create_user(self, payload: ClientUserCreatePayload):
         """Send request to Azure AD to create new user.\n
@@ -86,4 +90,4 @@ class AzureUserAdapter(UserApdater):
                 status_code=response.status_code,
                 detail=response.json(),
             )
-        return AzureUserCreateResponse(**response.json())
+        return AzureUserResponse(**response.json()).model_dump()

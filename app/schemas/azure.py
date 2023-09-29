@@ -25,7 +25,7 @@ class AzureUserCreatePayload(AzureUserCommon):
         return v
 
 
-class AzureUserCreateResponse(ClientUserResponse):
+class AzureUserResponse(ClientUserResponse):
     role: Optional[str] = Field(
         default=None, alias=f"{settings.EXTENSION_KEY_PREFIX}_roles"
     )
